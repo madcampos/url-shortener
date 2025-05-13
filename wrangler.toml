@@ -1,0 +1,33 @@
+# Top-level configuration
+name = "url-shortener-local"
+main = "src/index.ts"
+compatibility_date = "2025-05-05"
+compatibility_flags = ["nodejs_compat"]
+keep_vars = false
+send_metrics = false
+preserve_file_names = true
+minify = true
+workers_dev = true
+preview_urls = false
+
+[dev]
+ip = "localhost"
+port = 4242
+local_protocol = "http"
+upstream_protocol = "https"
+
+[assets]
+directory = "./public/"
+binding = "Assets"
+
+[vars]
+NODE_ENV = "local"
+
+# PRODUCTION env configuration
+[env.production]
+name = "url-shortener"
+workers_dev = true
+preview_urls = false
+
+[env.production.vars]
+NODE_ENV = "production"
