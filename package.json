@@ -2,11 +2,11 @@
 	"name": "url-shortener",
 	"version": "0.0.1",
 	"private": true,
-	"main": "src/index.ts",
+	"main": "src/index.mjs",
 	"type": "module",
 	"scripts": {
 		"prepare": "husky",
-		"start": "wrangler dev src/index.ts",
+		"start": "wrangler dev",
 		"deploy:prod": "wrangler deploy --minify --env production",
 		"format": "dprint fmt --staged",
 		"typecheck": "tsc --noEmit",
@@ -18,9 +18,6 @@
 	"description": "A URL shortener",
 	"volta": {
 		"node": "22.15.0"
-	},
-	"dependencies": {
-		"hono": "4.7.8"
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "4.20250508.0",
