@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Marco's URL Shortener</title>
+	</head>
+	<body>
+		<h1>Marco's URL Shortener</h1>
+
+		<fieldset>
+			<legend>Load local file</legend>
+			<form method="get" action="#">
+				<div>
+					<label for="file">Source file</label>
+					<input type="file" name="file" id="file" />
+				</div>
+
+				<div>
+					<button type="submit">Load file</button>
+				</div>
+			</form>
+		</fieldset>
+
+		<fieldset>
+			<legend>Add new link</legend>
+			<form method="get" action="#">
+				<div>
+					<label for="id">Link name</label>
+					<input type="text" name="id" id="id" />
+				</div>
+				<div>
+					<label for="url">URL</label>
+					<input type="url" name="url" id="url" />
+				</div>
+				<button type="submit">Add link</button>
+			</form>
+		</fieldset>
+
+		<main>
+			<table>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>URL</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</main>
+	</body>
+</html>
