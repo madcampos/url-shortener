@@ -9,11 +9,13 @@ export const STATIC_FILE_PATHS = [
 	'/favicon.ico'
 ];
 
+export const VALIDATION_REGEX = /^[a-z0-9_\-]+$/igu;
+
 /**
  * @param {string} id
  */
 export function isValidId(id) {
-	return /^[a-z0-9_\-]+$/igu.test(id);
+	return VALIDATION_REGEX.test(id);
 }
 
 /**
@@ -34,6 +36,12 @@ export async function parseFile(file) {
 					updatedAt = new Date().toISOString(),
 					comment = ''
 				] = line.split('\t');
+
+				if (!isValidId(linkId)) {
+					return ['', { url: '', updatedAt: new Date(), comment: '' }];
+				}
+
+				// TODO: validate properties
 
 				return [linkId.trim(), {
 					url: url.trim(),
