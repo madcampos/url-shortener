@@ -1,4 +1,13 @@
-export const LINKS_FILE = '_links.txt';
+export const LINKS_FILE_PATH = '/_links.txt';
+
+export const STATIC_FILE_PATHS = [
+	LINKS_FILE_PATH,
+	'/index.html',
+	'/helpers.mjs',
+	'/main.mjs',
+	'/styles.css',
+	'/favicon.ico'
+];
 
 /**
  * @param {string} id

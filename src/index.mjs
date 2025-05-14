@@ -1,7 +1,7 @@
-import { isValidId, LINKS_FILE, parseFile } from '../public/helpers.mjs';
+import { isValidId, LINKS_FILE_PATH, parseFile, STATIC_FILE_PATHS } from '../public/helpers.mjs';
 
 const ASSETS_BASE_URL = 'https://assets.local/';
-const LINKS_URL = `${ASSETS_BASE_URL}${LINKS_FILE}`;
+const LINKS_URL = new URL(LINKS_FILE_PATH, ASSETS_BASE_URL);
 
 /**
  * @typedef Env
@@ -17,8 +17,7 @@ export default {
 	async fetch(request, env) {
 		const url = new URL(request.url);
 
-		// It is a file, has an extension.
-		if (url.pathname.includes('.')) {
+		if (STATIC_FILE_PATHS.includes(url.pathname)) {
 			return env.Assets.fetch(request);
 		}
 
