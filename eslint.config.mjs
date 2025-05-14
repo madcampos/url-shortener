@@ -448,8 +448,9 @@ const rules = {
 const languageOptions = {
 	globals: {
 		...globals.browser,
-		...globals.es2020,
+		...globals.es2025,
 		...globals.worker,
+		...globals.serviceworker,
 		...globals['shared-node-browser']
 	},
 	ecmaVersion: 'latest',
