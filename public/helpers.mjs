@@ -26,16 +26,30 @@ export async function parseFile(file) {
 			.trim()
 			.split('\n')
 			.filter((line) => Boolean(line))
+			.filter((line) => !line.startsWith('#'))
 			.map((line) => {
-				const [linkId = '', url = ''] = line.split('\t');
+				const [
+					linkId = '',
+					url = '',
+					updatedAt = new Date().toISOString(),
+					comment = ''
+				] = line.split('\t');
 
-				return [linkId.trim(), url.trim()];
+				return [linkId.trim(), {
+					url: url.trim(),
+					updatedAt: new Date(updatedAt.trim()),
+					comment: comment.trim()
+				}];
 			})
 	);
 
 	return links;
 }
 
-export function loadLinks() {
-	// TODO
+export async function loadLinks() {
+	const response = await fetch(LINKS_FILE_PATH);
+	const file = await response.blob();
+	const links = await parseFile(file);
+
+	return links;
 }

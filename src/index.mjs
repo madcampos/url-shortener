@@ -35,10 +35,11 @@ export default {
 			return new Response('Invalid ID', { status: 400 });
 		}
 
-		return new Response(null, {
+		return new Response(links[id].comment, {
 			status: 308,
 			headers: new Headers({
-				Location: links[id]
+				'Location': links[id].url,
+				'Last-Modified': links[id].updatedAt.toUTCString()
 			})
 		});
 	}
