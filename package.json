@@ -5,8 +5,8 @@
 	"main": "src/index.mjs",
 	"type": "module",
 	"scripts": {
-		"prepare": "husky",
 		"start": "wrangler dev",
+		"denerate:types": "wrangler types src/env.d.ts",
 		"deploy:prod": "wrangler deploy --minify --env production",
 		"format": "dprint fmt --staged",
 		"typecheck": "tsc --noEmit",
@@ -20,14 +20,11 @@
 		"node": "22.15.0"
 	},
 	"devDependencies": {
-		"@cloudflare/workers-types": "4.20250508.0",
-		"@types/node": "22.15.15",
 		"@typescript-eslint/eslint-plugin": "8.32.0",
 		"@typescript-eslint/parser": "8.32.0",
 		"dprint": "0.49.1",
 		"eslint": "9.26.0",
 		"globals": "16.1.0",
-		"husky": "9.1.7",
 		"typescript": "5.8.3",
 		"wrangler": "4.14.3"
 	}
