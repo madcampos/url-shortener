@@ -17,6 +17,10 @@ export default {
 	async fetch(request, env) {
 		const url = new URL(request.url);
 
+		if (url.pathname === '/') {
+			return env.Assets.fetch(new URL('/index.html', ASSETS_BASE_URL));
+		}
+
 		if (STATIC_FILE_PATHS.includes(url.pathname)) {
 			return env.Assets.fetch(request);
 		}
