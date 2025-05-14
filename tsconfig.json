@@ -17,7 +17,7 @@
 		"incremental": true,
 		"isolatedModules": true,
 		"isolatedDeclarations": false,
-		"lib": ["ESNext"],
+		"lib": ["DOM", "DOM.Iterable", "DOM.AsyncIterable", "ESNext"],
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
 		"newLine": "LF",
@@ -42,6 +42,6 @@
 		"useDefineForClassFields": true,
 		"useUnknownInCatchVariables": false,
 		"verbatimModuleSyntax": true,
-		"types": ["node", "@cloudflare/workers-types"]
+		"types": ["./src/env.d.ts"]
 	}
 }
