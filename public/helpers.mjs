@@ -1,9 +1,15 @@
+/**
+ * @typedef {{ url: string, updatedAt: Date, comment: string}} Link
+ * @typedef {Record<string, Link>} Links
+ */
+
 export const LINKS_FILE_PATH = '/_links.txt';
 
 export const STATIC_FILE_PATHS = [
 	LINKS_FILE_PATH,
 	'/index.html',
 	'/helpers.mjs',
+	'/idb.mjs',
 	'/main.mjs',
 	'/styles.css',
 	'/favicon.ico'
@@ -16,6 +22,15 @@ export const VALIDATION_REGEX = /^[a-z0-9_\-]+$/igu;
  */
 export function isValidId(id) {
 	return VALIDATION_REGEX.test(id);
+}
+
+/**
+ * @param {Links} links
+ */
+export function sortLinks(links) {
+	const sorter = Intl.Collator('en-US', { numeric: true, usage: 'sort' });
+
+	return Object.fromEntries(Object.entries(links).sort(([a], [b]) => sorter.compare(a, b)));
 }
 
 /**
@@ -43,6 +58,7 @@ export async function parseFile(file) {
 
 				// TODO: validate properties
 
+				/** @type {Links} */
 				return [linkId.trim(), {
 					url: url.trim(),
 					updatedAt: new Date(updatedAt.trim()),
