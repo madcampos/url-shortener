@@ -5,7 +5,7 @@
 	"main": "src/index.mjs",
 	"type": "module",
 	"scripts": {
-		"start": "wrangler dev",
+		"start": "wrangler dev --https-cert-path certs/server.crt --https-key-path certs/server.key",
 		"denerate:types": "wrangler types src/env.d.ts",
 		"deploy:prod": "wrangler deploy --minify --env production",
 		"format": "dprint fmt --staged",
@@ -20,6 +20,7 @@
 		"node": "22.15.0"
 	},
 	"devDependencies": {
+		"@types/wicg-file-system-access": "2023.10.6",
 		"@typescript-eslint/eslint-plugin": "8.32.0",
 		"@typescript-eslint/parser": "8.32.0",
 		"dprint": "0.49.1",

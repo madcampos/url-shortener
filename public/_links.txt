@@ -1,0 +1,2 @@
+tabs	https://madcampos.dev/blog/2023/07/tabs-web-component/	2025-05-15T09:47:42.288Z	Blog post about tabs using webcomponents
+react	https://madcampos.dev/blog/2024/02/react-is-dead/	2025-05-15T09:47:42.288Z

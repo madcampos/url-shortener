@@ -42,6 +42,6 @@
 		"useDefineForClassFields": true,
 		"useUnknownInCatchVariables": false,
 		"verbatimModuleSyntax": true,
-		"types": ["./src/env.d.ts"]
+		"types": ["./src/env.d.ts", "wicg-file-system-access"]
 	}
 }

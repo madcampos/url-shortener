@@ -91,6 +91,8 @@ input, textarea, button {
 	}
 }
 
+textarea { resize: none; }
+
 button {
 	background-color: var(--bg-color);
 	color: var(--theme-color);
@@ -143,6 +145,39 @@ button {
 	#add-link-submit-wrapper { grid-area: button; }
 }
 
+#local-file-form {
+	display: grid;
+	position: relative;
+	place-items: center;
+	height: 100%;
+	text-align: center;
+
+	div {
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	p { margin: 0; }
+
+	#drop-area {
+		display: none;
+		position: absolute;
+		place-items: center;
+		inset: 0;
+		border: dashed thick var(--theme-color);
+		border-radius: 1rem;
+		background: radial-gradient(transparent, color-mix(in srgb, var(--theme-color), transparent));
+		background-clip: content-box;
+		padding: 0.2rem;
+	}
+
+	&[data-dragover] > div {
+		display: none;
+		pointer-events: none;
+	}
+	&[data-dragover] #drop-area { display: grid; }
+}
+
 main {
 	flex-grow: 1;
 	margin: 1rem;
@@ -161,6 +196,15 @@ table {
 		position: sticky;
 		inset-block-start: 0;
 		background-color: var(--table-bg);
+
+		th[aria-sort] span {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 0.5rem;
+
+			label { flex-grow: 1; }
+		}
 	}
 
 	tbody {
@@ -186,21 +230,20 @@ table {
 		tr.color-16 { color: light-dark(steelblue, turquoise); }
 		tr.color-17 { color: light-dark(olivedrab, yellowgreen); }
 
-		tr:not([data-editing]) .cell-edit { display: none; }
-		tr[data-editing] .cell-display { display: none; }
-
 		td {
 			padding: 0.5rem;
 			min-width: fit-content;
+			height: 2rem;
 		}
 
 		td:nth-child(1) {
 			.cell-display {
 				display: flex;
-				justify-content: space-between;
 				align-items: center;
-				gap: 1rem;
+				gap: 0.5rem;
 				font-family: monospace;
+
+				samp { flex-grow: 1; }
 			}
 		}
 
@@ -226,5 +269,16 @@ table {
 		}
 
 		td:nth-child(5), td:nth-child(6) { text-align: center; }
+
+		.cell-edit {
+			display: flex;
+			flex-direction: column;
+			flex-wrap: wrap;
+			align-content: start;
+			height: 100%;
+		}
+
+		tr:not([data-editing]) .cell-edit { display: none; }
+		tr[data-editing] .cell-display { display: none; }
 	}
 }

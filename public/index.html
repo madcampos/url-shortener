@@ -61,12 +61,17 @@
 				<legend>Load local file</legend>
 				<form method="get" action="/" id="local-file-form">
 					<div>
-						<label for="file-input">Source file</label>
-						<input type="file" name="file" id="file-input" />
+						<span id="saved-file-wrapper" hidden>
+							<label for="saved-file-input">Saved file:</label>
+							<input id="saved-file-input" name="saved-file" readonly type="text" />
+						</span>
+						<button type="submit">Click to load file</button>
+						<p>Or drag a file here...</p>
+						<p>Or paste a copied file...</p>
 					</div>
 
-					<div>
-						<button type="submit">Load file</button>
+					<div id="drop-area">
+						<p>Drop the file here</p>
 					</div>
 				</form>
 			</fieldset>
@@ -75,10 +80,10 @@
 				<legend>Add new link</legend>
 				<form method="get" action="/" id="add-link-form">
 					<div id="id-input-wrapper">
-						<label for="id-input">Link id</label>
+						<label for="id-input">Link ID</label>
 						<span>
 							<input type="text" name="id" id="id-input" required />
-							<button type="button" id="generate-id-button">
+							<button type="button" id="generate-id-button" aria-label="Generate random id">
 								<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-shuffle" /></svg>
 							</button>
 						</span>
@@ -104,28 +109,36 @@
 				<thead>
 					<tr>
 						<th aria-sort="none">
-							<span>ID</span>
-							<button type="button" aria-pressed="false">
-								<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-sorting" /></svg>
-							</button>
+							<span>
+								<label for="id-sort-button">ID</label>
+								<button type="button" aria-pressed="false" id="id-sort-button">
+									<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-sorting" /></svg>
+								</button>
+							</span>
 						</th>
 						<th aria-sort="none">
-							<span>URL</span>
-							<button type="button" aria-pressed="false">
-								<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-sorting" /></svg>
-							</button>
+							<span>
+								<label for="url-sort-button">URL</label>
+								<button type="button" aria-pressed="false" id="url-sort-button">
+									<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-sorting" /></svg>
+								</button>
+							</span>
 						</th>
 						<th aria-sort="none">
-							<span>Link Time</span>
-							<button type="button" aria-pressed="false">
-								<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-sorting" /></svg>
-							</button>
+							<span>
+								<label for="updated-sort-button">Link Last Updated</label>
+								<button type="button" aria-pressed="false" id="updated-sort-button">
+									<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-sorting" /></svg>
+								</button>
+							</span>
 						</th>
 						<th aria-sort="none">
-							<span>Comment</span>
-							<button type="button" aria-pressed="false">
-								<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-sorting" /></svg>
-							</button>
+							<span>
+								<label for="comment-sort-button">Comment</label>
+								<button type="button" aria-pressed="false" id="comment-sort-button">
+									<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-sorting" /></svg>
+								</button>
+							</span>
 						</th>
 						<th>
 							<span>Edit</span>
@@ -145,8 +158,6 @@
 				</tbody>
 			</table>
 		</main>
-
-		<div id="drop-area"></div>
 
 		<script type="module" src="/main.mjs"></script>
 	</body>

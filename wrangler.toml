@@ -12,7 +12,7 @@ preview_urls = false
 [dev]
 ip = "localhost"
 port = 4242
-local_protocol = "http"
+local_protocol = "https"
 upstream_protocol = "https"
 
 [assets]

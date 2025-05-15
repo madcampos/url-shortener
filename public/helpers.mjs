@@ -4,6 +4,7 @@
  */
 
 export const LINKS_FILE_PATH = '/_links.txt';
+export const BASE_URL = 'https://madc.ca/';
 
 export const STATIC_FILE_PATHS = [
 	LINKS_FILE_PATH,
@@ -21,7 +22,7 @@ export const VALIDATION_REGEX = /^[a-z0-9_\-]+$/igu;
  * @param {string} id
  */
 export function isValidId(id) {
-	return VALIDATION_REGEX.test(id);
+	return new RegExp(VALIDATION_REGEX).test(id);
 }
 
 /**
@@ -45,24 +46,26 @@ export async function parseFile(file) {
 			.filter((line) => Boolean(line))
 			.filter((line) => !line.startsWith('#'))
 			.map((line) => {
-				const [
-					linkId = '',
-					url = '',
-					updatedAt = new Date().toISOString(),
-					comment = ''
-				] = line.split('\t');
+				const parts = line.split('\t');
 
-				if (!isValidId(linkId)) {
+				const id = (parts[0] ?? '').trim();
+				const url = (parts[1] ?? '').trim();
+				const comment = (parts[3] ?? '').trim();
+				let updatedAt = new Date((parts[2] ?? '').trim());
+
+				if (!isValidId(id) || !URL.canParse(url)) {
 					return ['', { url: '', updatedAt: new Date(), comment: '' }];
 				}
 
-				// TODO: validate properties
+				if (Number.isNaN(updatedAt)) {
+					updatedAt = new Date();
+				}
 
 				/** @type {Links} */
-				return [linkId.trim(), {
-					url: url.trim(),
-					updatedAt: new Date(updatedAt.trim()),
-					comment: comment.trim()
+				return [id, {
+					url,
+					updatedAt,
+					comment
 				}];
 			})
 	);
