@@ -6,8 +6,9 @@ keep_vars = false
 send_metrics = false
 preserve_file_names = true
 minify = true
-workers_dev = true
+workers_dev = false
 preview_urls = false
+routes = [ { pattern = "madc.ca", custom_domain = true } ]
 
 [dev]
 ip = "localhost"
@@ -26,10 +27,5 @@ not_found_handling = "none"
 NODE_ENV = "local"
 
 # PRODUCTION env configuration
-[env.production]
-name = "url-shortener"
-workers_dev = true
-preview_urls = false
-
 [env.production.vars]
 NODE_ENV = "production"
