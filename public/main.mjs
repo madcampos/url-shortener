@@ -1,4 +1,4 @@
-import { BASE_URL, loadLinks, parseFile, sortLinks, VALIDATION_REGEX } from './helpers.mjs';
+import { BASE_URL, isValidId, loadLinks, parseFile, sortLinks, VALIDATION_REGEX } from './helpers.mjs';
 import { get, set } from './idb.mjs';
 
 const table = /** @type {HTMLTableSectionElement} */ (document.querySelector('table tbody'));
@@ -90,11 +90,120 @@ function removeLinkFromTable(id) {
 
 /**
  * @param {string} id
+ */
+function generateIdCellContent(id) {
+	return raw`
+		<span class="cell-display">
+			<samp>${id}</samp>
+			<button type="button" class="copy-id-button" aria-label="Copy URL for id: ${id}">
+				<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-copy"/></svg>
+			</button>
+			<button type="button" class="share-id-button" aria-label="Share URL for id: ${id}">
+				<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-share"/></svg>
+			</button>
+		</span>
+		<span class="cell-edit">
+			<label for="id-input-${id}">ID</label>
+			<input
+				type="text"
+				value="${id}"
+				required
+				autocomplete="off"
+				autocapitalize="off"
+				form="row-form-${id}"
+				pattern="${VALIDATION_REGEX.source}"
+				id="id-input-${id}"
+				name="id"
+				readonly
+			/>
+		</span>
+	`;
+}
+
+/**
+ * @param {string} id
+ * @param {string} url
+ */
+function generateUrlCellContent(id, url) {
+	return raw`
+		<span class="cell-display">
+			<a href="${url}" rel="nofollow noopener noreferrer" referrerpolicy="no-referrer">${url}</a>
+			&nbsp;
+			<a href="${url}" rel="nofollow noopener noreferrer" referrerpolicy="no-referrer" target="_blank">
+				<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-external"/></svg>
+			</a>
+		</span>
+		<span class="cell-edit">
+			<label for="url-input-${id}">URL</label>
+			<input
+				type="url"
+				value="${url}"
+				id="url-input-${id}"
+				name="url"
+				form="row-form-${id}"
+				required
+				autocomplete="off"
+			/>
+		</span>
+	`;
+}
+
+/**
+ * @param {string} id
+ * @param {Date} updatedAt
+ */
+function generateUpdatedAtCellContent(id, updatedAt) {
+	const formatter = new Intl.DateTimeFormat('en-CA', { dateStyle: 'medium', timeStyle: 'short' });
+
+	return raw`
+		<span class="cell-display">
+			<time datetime="${updatedAt.toISOString().replace('Z', '')}">${formatter.format(updatedAt)}</time>
+		</span>
+		<span class="cell-edit">
+			<label for="updated-at-input-${id}">Link Last Updated</label>
+			<input
+				type="datetime-local"
+				value="${updatedAt.toISOString().replace('Z', '')}"
+				id="updated-at-input-${id}"
+				name="updatedAt"
+				form="row-form-${id}"
+				required
+				autocomplete="off"
+				min="${updatedAt.toISOString().replace('Z', '')}"
+			/>
+		</span>
+	`;
+}
+
+/**
+ * @param {string} id
+ * @param {string} comment
+ */
+function generateCommentCellContent(id, comment) {
+	return raw`
+		<span class="cell-display">
+			<p>${comment}</p>
+		</span>
+		<span class="cell-edit">
+			<label for="comment-input-${id}">Comment</label>
+			<textarea
+				cols="15"
+				rows="3"
+				id="comment-input-${id}"
+				name="comment"
+				form="row-form-${id}"
+				autocomplete="off"
+			>${comment}</textarea>
+		</span>
+	`;
+}
+
+/**
+ * @param {string} id
  * @param {import('./helpers.mjs').Link} link
  */
 function addLinkToTable(id, { url, comment, updatedAt }) {
 	const NUM_COLORS = 18;
-	const formatter = new Intl.DateTimeFormat('en-CA', { dateStyle: 'medium', timeStyle: 'short' });
 
 	const existingTimeStamp = new Date(/** @type {HTMLTimeElement | null} */ (table.querySelector(`td[data-id="${id}"] time`))?.dateTime ?? '0000-00-00T00:00:00Z');
 
@@ -102,75 +211,69 @@ function addLinkToTable(id, { url, comment, updatedAt }) {
 		return;
 	}
 
+	// TODO: fix color selection
+	const existingIndex = /** @type {HTMLTableRowElement | null} */ (table.querySelector(`td[data-id="${id}"]`))?.sectionRowIndex;
+
 	removeLinkFromTable(id);
 	table.querySelector('tr:has(td[colspan])')?.remove();
 
 	table.insertAdjacentHTML(
 		'beforeend',
 		raw`
-			<tr class="color-${(table.rows.length % NUM_COLORS).toString()}" data-id="${id}">
+			<tr class="color-${(existingIndex ?? table.rows.length % NUM_COLORS).toString()}" data-id="${id}">
 				<td>
-					<span class="cell-display">
-						<samp>${id}</samp>
-						<button type="button" class="copy-id-button" aria-label="Copy URL for id: ${id}">
-							<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-copy"/></svg>
-						</button>
-						<button type="button" class="share-id-button" aria-label="Share URL for id: ${id}">
-							<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-share"/></svg>
-						</button>
-					</span>
-					<span class="cell-edit">
-						<label for="id-input-${id}">ID</label>
-						<input type="text" value="${id}" pattern="${VALIDATION_REGEX.source}" id="id-input-${id}" name="id" />
-					</span>
+					${generateIdCellContent(id)}
+				</td>
+				<td>
+					${generateUrlCellContent(id, url)}
+				</td>
+				<td>
+					${generateUpdatedAtCellContent(id, updatedAt)}
+				</td>
+				<td>
+					${generateCommentCellContent(id, comment)}
 				</td>
 				<td>
 					<span class="cell-display">
-						<a href="${url}" rel="nofollow noopener noreferrer" referrerpolicy="no-referrer">${url}</a>
-						&nbsp;
-						<a href="${url}" rel="nofollow noopener noreferrer" referrerpolicy="no-referrer" target="_blank">
-							<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-external"/></svg>
-						</a>
-					</span>
-					<span class="cell-edit">
-						<label for="url-input-${id}">URL</label>
-						<input type="url" value="${url}" id="url-input-${id}" name="url" />
-					</span>
-				</td>
-				<td>
-					<span class="cell-display">
-						<time datetime="${updatedAt.toISOString().replace('Z', '')}">${formatter.format(updatedAt)}</time>
-					</span>
-					<span class="cell-edit">
-						<label for="updated-at-input-${id}">Link Last Updated</label>
-						<input type="datetime-local" value="${updatedAt.toISOString().replace('Z', '')}" id="updated-at-input-${id}" name="updatedAt" />
-					</span>
-				</td>
-				<td>
-					<span class="cell-display">
-						<p>${comment}</p>
-					</span>
-					<span class="cell-edit">
-						<label for="comment-input-${id}">Comment</label>
-						<textarea cols="15" rows="3" id="comment-input-${id}" name="comment">${comment}</textarea>
-					</span>
-				</td>
-				<td>
-					<span class="cell-display">
-						<button type="button" class="edit-row-button" aria-label="Edit row">
+						<button
+							type="button"
+							class="edit-row-button"
+							aria-label="Edit row"
+						>
 							<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-edit"/></svg>
 						</button>
 					</span>
 					<span class="cell-edit">
-						<button type="button" class="save-row-button" aria-label="Save changes to row">
+						<form action="" method="get" id="row-form-${id}"></form>
+
+						<button
+							type="submit"
+							form="row-form-${id}"
+							class="save-row-button"
+							aria-label="Save changes to row"
+						>
 							<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-check"/></svg>
 						</button>
 					</span>
 				</td>
 				<td>
 					<span class="cell-display">
-						<button type="button" class="delete-row-button" aria-label="Delete row">
+						<button
+							type="button"
+							class="delete-row-button"
+							aria-label="Delete row"
+						>
 							<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-delete"/></svg>
+						</button>
+					</span>
+					<span class="cell-edit">
+						<button
+							type="reset"
+							form="row-form-${id}"
+							class="reset-row-button"
+							aria-label="Reset changes to row"
+						>
+							<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-x"/></svg>
 						</button>
 					</span>
 				</td>
@@ -187,14 +290,17 @@ function populateTable(links) {
 
 	if (linkEntries.length === 0) {
 		table?.querySelector('tr:has(td[colspan])')?.remove();
-		table?.insertAdjacentHTML(
-			'beforeend',
-			raw`
-				<tr>
-					<td colspan="6"><p>No links available</p></td>
-				</tr>
-			`
-		);
+
+		if (table.rows.length === 0) {
+			table?.insertAdjacentHTML(
+				'beforeend',
+				raw`
+					<tr>
+						<td colspan="6"><p>No links available</p></td>
+					</tr>
+				`
+			);
+		}
 	} else {
 		linkEntries.forEach(([id, link]) => {
 			addLinkToTable(id, link);
@@ -320,6 +426,10 @@ document.querySelector('#add-link-form')?.addEventListener('submit', async (evt)
 	const formData = new FormData(target);
 	const id = /** @type {string} */ (formData.get('id'));
 
+	if (!isValidId(id)) {
+		(/** @type {HTMLInputElement} */ (target.querySelector('#id-input'))).setCustomValidity('Invalid ID');
+	}
+
 	/** @type {import('./helpers.mjs').Link} */
 	const data = {
 		url: /** @type {string} */ (formData.get('url')),
@@ -420,9 +530,9 @@ localFileForm.addEventListener('drop', async (evt) => {
 
 	delete localFileForm.dataset['dragover'];
 
-	const item = evt.dataTransfer?.items?.[0];
+	const item = [...(evt.dataTransfer?.items ?? [])].find((item) => item.kind === 'file' && item.type === 'text/plain');
 
-	if (item && item.kind === 'file' && item.type === 'text/plain') {
+	if (item) {
 		const handle = /** @type {FileSystemFileHandle | null} */ (await item.getAsFileSystemHandle());
 
 		if (!handle) {
@@ -439,7 +549,6 @@ localFileForm.addEventListener('drop', async (evt) => {
 
 				await set('links-file-handler', handle);
 				populateTable(links);
-				debugger;
 			}
 		}
 	}
@@ -457,16 +566,122 @@ table.addEventListener('click', (evt) => {
 });
 
 // Save table row
-table.addEventListener('click', (evt) => {
-	const target = /** @type {HTMLElement} */ (evt.target);
+table.addEventListener('submit', async (evt) => {
+	evt.preventDefault();
 
-	if (!target.matches('button.save-row-button')) {
-		return;
-	}
+	const target = /** @type {HTMLFormElement} */ (evt.target);
+	const formData = new FormData(target);
+	const row = /** @type {HTMLTableRowElement} */ (target.closest('tr'));
 
-	target.closest('tr')?.toggleAttribute('data-editing', false);
-	// TODO: save data
+	const id = /** @type {string} */ (formData.get('id'));
+
+	/** @type {import('./helpers.mjs').Link} */
+	const data = {
+		url: /** @type {string} */ (formData.get('url')),
+		updatedAt: new Date(),
+		comment: /** @type {string} */ (formData.get('comment') ?? '')
+	};
+
+	await addRowToFile(id, data);
+
+	(/** @type {HTMLTableCellElement} */ (row.cells[0])).innerHTML = generateIdCellContent(id);
+	(/** @type {HTMLTableCellElement} */ (row.cells[1])).innerHTML = generateUrlCellContent(id, data.url);
+	(/** @type {HTMLTableCellElement} */ (row.cells[2])).innerHTML = generateUpdatedAtCellContent(id, data.updatedAt);
+	(/** @type {HTMLTableCellElement} */ (row.cells[3])).innerHTML = generateCommentCellContent(id, data.comment);
+
+	row.toggleAttribute('data-editing', false);
 });
 
-// TODO: Paste text
-// TODO: Paste file
+table.addEventListener('reset', (evt) => {
+	evt.preventDefault();
+
+	const target = /** @type {HTMLFormElement} */ (evt.target);
+	const row = /** @type {HTMLTableRowElement} */ (target.closest('tr'));
+	const id = row.cells[0]?.querySelector('samp')?.textContent ?? '';
+	const url = row.cells[1]?.querySelector('a')?.href ?? '';
+	const updatedAt = new Date((row.cells[2]?.querySelector('time')?.dateTime ?? '0000-00-00') + 'Z');
+	const comment = row.cells[3]?.querySelector('p')?.textContent ?? '';
+
+	(/** @type {HTMLTableCellElement} */ (row.cells[0])).innerHTML = generateIdCellContent(id);
+	(/** @type {HTMLTableCellElement} */ (row.cells[1])).innerHTML = generateUrlCellContent(id, url);
+	(/** @type {HTMLTableCellElement} */ (row.cells[2])).innerHTML = generateUpdatedAtCellContent(id, updatedAt);
+	(/** @type {HTMLTableCellElement} */ (row.cells[3])).innerHTML = generateCommentCellContent(id, comment);
+
+	row.toggleAttribute('data-editing', false);
+});
+
+document.querySelector('#download-links-button')?.addEventListener('click', () => {
+	const text = [...table.rows].map((row) => {
+		const id = row.cells[0]?.querySelector('samp')?.textContent ?? '';
+		const url = row.cells[1]?.querySelector('a')?.href ?? '';
+		const updatedAt = (row.cells[2]?.querySelector('time')?.dateTime ?? '0000-00-00') + 'Z';
+		const comment = row.cells[3]?.querySelector('p')?.textContent ?? '';
+
+		return `${id}\t${url}\t${updatedAt}\t${comment}`;
+	}).join('\n');
+
+	const downloadLink = document.createElement('a');
+	downloadLink.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+	downloadLink.setAttribute('download', '_links.txt');
+
+	downloadLink.style.display = 'none';
+	document.body.appendChild(downloadLink);
+
+	downloadLink.click();
+
+	document.body.removeChild(downloadLink);
+});
+
+// Paste file
+document.addEventListener('paste', async (evt) => {
+	const item = [...(evt.clipboardData?.items ?? [])].find((item) => item.kind === 'file' && item.type === 'text/plain');
+
+	if (item) {
+		if ('showOpenFilePicker' in window) {
+			const handle = /** @type {FileSystemFileHandle | null} */ (await item.getAsFileSystemHandle());
+
+			if (!handle) {
+				return;
+			}
+
+			const permission = await handle.requestPermission({ mode: 'readwrite' });
+
+			if (permission === 'granted') {
+				const file = await handle.getFile();
+
+				if (file) {
+					const links = await parseFile(file);
+
+					await set('links-file-handler', handle);
+					populateTable(links);
+				}
+			}
+		} else {
+			const file = await item.getAsFile();
+
+			if (file) {
+				const links = await parseFile(file);
+
+				populateTable(links);
+			}
+		}
+	}
+});
+
+// Paste text
+document.addEventListener('paste', async (evt) => {
+	const item = [...(evt.clipboardData?.items ?? [])].find((item) => item.kind === 'string' && item.type === 'text/plain');
+
+	if (item) {
+		/** @type {string} */
+		const string = await new Promise((resolve) => {
+			item.getAsString((data) => {
+				resolve(data);
+			});
+		});
+
+		const links = await parseFile(new Blob([string], { type: 'text/plain' }));
+
+		populateTable(links);
+	}
+});

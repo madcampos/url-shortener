@@ -178,6 +178,8 @@ button {
 	&[data-dragover] #drop-area { display: grid; }
 }
 
+#download-links-wrapper { text-align: center; }
+
 main {
 	flex-grow: 1;
 	margin: 1rem;

@@ -22,7 +22,9 @@ export const VALIDATION_REGEX = /^[a-z0-9_\-]+$/igu;
  * @param {string} id
  */
 export function isValidId(id) {
-	return new RegExp(VALIDATION_REGEX).test(id);
+	const staticFileNames = STATIC_FILE_PATHS.map((path) => path.replace('/', ''));
+
+	return !STATIC_FILE_PATHS.includes(id) && !staticFileNames.includes(id) && new RegExp(VALIDATION_REGEX).test(id);
 }
 
 /**
@@ -68,6 +70,7 @@ export async function parseFile(file) {
 					comment
 				}];
 			})
+			.filter(([id]) => id)
 	);
 
 	return links;

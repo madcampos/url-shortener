@@ -51,6 +51,10 @@
 					id="icon-check"
 					d="M18.71 7.21a1 1 0 0 0-1.42 0l-7.45 7.46l-3.13-3.14A1 1 0 1 0 5.29 13l3.84 3.84a1 1 0 0 0 1.42 0l8.16-8.16a1 1 0 0 0 0-1.47"
 				/>
+				<path
+					id="icon-x"
+					d="m13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29l-4.3 4.29a1 1 0 0 0 0 1.42a1 1 0 0 0 1.42 0l4.29-4.3l4.29 4.3a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.42Z"
+				/>
 			</defs>
 		</svg>
 
@@ -59,7 +63,7 @@
 		<aside>
 			<fieldset id="local-file" hidden>
 				<legend>Load local file</legend>
-				<form method="get" action="/" id="local-file-form">
+				<form method="get" action="" id="local-file-form">
 					<div>
 						<span id="saved-file-wrapper" hidden>
 							<label for="saved-file-input">Saved file:</label>
@@ -78,7 +82,7 @@
 
 			<fieldset id="add-link">
 				<legend>Add new link</legend>
-				<form method="get" action="/" id="add-link-form">
+				<form method="get" action="" id="add-link-form">
 					<div id="id-input-wrapper">
 						<label for="id-input">Link ID</label>
 						<span>
@@ -104,6 +108,9 @@
 		</aside>
 
 		<h2>Existing links</h2>
+		<div id="download-links-wrapper">
+			<button type="button" id="download-links-button">Download Links File</button>
+		</div>
 		<main>
 			<table>
 				<thead>
