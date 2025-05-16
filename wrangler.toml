@@ -1,5 +1,5 @@
 # Top-level configuration
-name = "url-shortener-local"
+name = "url-shortener"
 main = "src/index.mjs"
 compatibility_date = "2025-05-05"
 keep_vars = false
