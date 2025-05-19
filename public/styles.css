@@ -213,24 +213,24 @@ table {
 		tr:has(td[colspan]) { text-align: center; }
 		tr:nth-child(even) { background-color: var(--table-stripes-bg); }
 
-		tr.color-0 { color: light-dark(blueviolet, blueviolet); }
-		tr.color-1 { color: light-dark(coral, coral); }
-		tr.color-2 { color: light-dark(navy, cornflowerblue); }
-		tr.color-3 { color: light-dark(crimson, crimson); }
-		tr.color-4 { color: light-dark(darkslategray, darkseagreen); }
-		tr.color-5 { color: light-dark(deeppink, deeppink); }
-		tr.color-6 { color: light-dark(maroon, darkorange); }
-		tr.color-7 { color: light-dark(dodgerblue, dodgerblue); }
-		tr.color-8 { color: light-dark(firebrick, firebrick); }
-		tr.color-9 { color: light-dark(darkgreen, greenyellow); }
-		tr.color-10 { color: light-dark(darkgoldenrod, goldenrod); }
-		tr.color-11 { color: light-dark(seagreen, lightseagreen); }
-		tr.color-12 { color: light-dark(mediumslateblue, mediumslateblue); }
-		tr.color-13 { color: light-dark(orangered, orangered); }
-		tr.color-14 { color: light-dark(royalblue, royalblue); }
-		tr.color-15 { color: light-dark(tomato, tomato); }
-		tr.color-16 { color: light-dark(steelblue, turquoise); }
-		tr.color-17 { color: light-dark(olivedrab, yellowgreen); }
+		tr[data-color='0'] { color: light-dark(blueviolet, blueviolet); }
+		tr[data-color='1'] { color: light-dark(coral, coral); }
+		tr[data-color='2'] { color: light-dark(navy, cornflowerblue); }
+		tr[data-color='3'] { color: light-dark(crimson, crimson); }
+		tr[data-color='4'] { color: light-dark(darkslategray, darkseagreen); }
+		tr[data-color='5'] { color: light-dark(deeppink, deeppink); }
+		tr[data-color='6'] { color: light-dark(maroon, darkorange); }
+		tr[data-color='7'] { color: light-dark(dodgerblue, dodgerblue); }
+		tr[data-color='8'] { color: light-dark(firebrick, firebrick); }
+		tr[data-color='9'] { color: light-dark(darkgreen, greenyellow); }
+		tr[data-color-='0'] { color: light-dark(darkgoldenrod, goldenrod); }
+		tr[data-color-='1'] { color: light-dark(seagreen, lightseagreen); }
+		tr[data-color-='2'] { color: light-dark(mediumslateblue, mediumslateblue); }
+		tr[data-color-='3'] { color: light-dark(orangered, orangered); }
+		tr[data-color-='4'] { color: light-dark(royalblue, royalblue); }
+		tr[data-color-='5'] { color: light-dark(tomato, tomato); }
+		tr[data-color-='6'] { color: light-dark(steelblue, turquoise); }
+		tr[data-color-='7'] { color: light-dark(olivedrab, yellowgreen); }
 
 		td {
 			padding: 0.5rem;

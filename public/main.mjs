@@ -211,8 +211,7 @@ function addLinkToTable(id, { url, comment, updatedAt }) {
 		return;
 	}
 
-	// TODO: fix color selection
-	const existingIndex = /** @type {HTMLTableRowElement | null} */ (table.querySelector(`td[data-id="${id}"]`))?.sectionRowIndex;
+	const existingColor = /** @type {HTMLTableRowElement | null} */ (table.querySelector(`tr[data-id="${id}"]`))?.dataset?.['color'];
 
 	removeLinkFromTable(id);
 	table.querySelector('tr:has(td[colspan])')?.remove();
@@ -220,7 +219,7 @@ function addLinkToTable(id, { url, comment, updatedAt }) {
 	table.insertAdjacentHTML(
 		'beforeend',
 		raw`
-			<tr class="color-${(existingIndex ?? table.rows.length % NUM_COLORS).toString()}" data-id="${id}">
+			<tr data-color="${(existingColor ?? table.rows.length % NUM_COLORS).toString()}" data-id="${id}">
 				<td>
 					${generateIdCellContent(id)}
 				</td>
