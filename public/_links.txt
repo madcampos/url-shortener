@@ -1,3 +1,6 @@
+me	https://madcampos.dev/	2025-06-05T00:30:08.157Z	Main website
 tabs	https://madcampos.dev/blog/2023/07/tabs-web-component/	2025-05-15T09:47:42.288Z	Blog post about tabs using webcomponents
 react	https://madcampos.dev/blog/2024/02/react-is-dead/	2025-05-15T09:47:42.288Z
 horse	http://endless.horse/	2025-05-15T20:49:34.337Z	Endless horse
+css	https://madcampos.dev/blog/2025/04/css-naked-day-2025/	2025-06-05T00:31:00.508Z
+food	https://madcampos.dev/food/	2025-06-05T00:31:36.632Z	What food to bring me
