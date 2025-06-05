@@ -453,8 +453,13 @@ table.addEventListener('click', async (evt) => {
 
 	const id = target.closest('tr')?.dataset['id'] ?? '';
 
-	await removeRowFromFile(id);
-	removeLinkFromTable(id);
+	if (
+		id &&
+		confirm(`Are you sure you want to remove "${id}"?`)
+	) {
+		await removeRowFromFile(id);
+		removeLinkFromTable(id);
+	}
 });
 
 // Copy id button
