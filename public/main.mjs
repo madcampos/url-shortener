@@ -96,10 +96,10 @@ function generateIdCellContent(id) {
 		<span class="cell-display">
 			<samp>${id}</samp>
 			<button type="button" class="copy-id-button" aria-label="Copy URL for id: ${id}">
-				<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-copy"/></svg>
+				<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-copy"/></svg>
 			</button>
 			<button type="button" class="share-id-button" aria-label="Share URL for id: ${id}">
-				<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-share"/></svg>
+				<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-share"/></svg>
 			</button>
 		</span>
 		<span class="cell-edit">
@@ -129,8 +129,8 @@ function generateUrlCellContent(id, url) {
 		<span class="cell-display">
 			<a href="${url}" rel="nofollow noopener noreferrer" referrerpolicy="no-referrer">${url}</a>
 			&nbsp;
-			<a href="${url}" rel="nofollow noopener noreferrer" referrerpolicy="no-referrer" target="_blank">
-				<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-external"/></svg>
+			<a href="${url}" rel="nofollow noopener noreferrer" referrerpolicy="no-referrer" target="_blank" arial-label="${url}">
+				<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-external"/></svg>
 			</a>
 		</span>
 		<span class="cell-edit">
@@ -141,7 +141,7 @@ function generateUrlCellContent(id, url) {
 				id="url-input-${id}"
 				name="url"
 				form="row-form-${id}"
-				required
+				requiredn
 				autocomplete="off"
 			/>
 		</span>
@@ -239,7 +239,7 @@ function addLinkToTable(id, { url, comment, updatedAt }) {
 							class="edit-row-button"
 							aria-label="Edit row"
 						>
-							<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-edit"/></svg>
+							<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-edit"/></svg>
 						</button>
 					</span>
 					<span class="cell-edit">
@@ -251,7 +251,7 @@ function addLinkToTable(id, { url, comment, updatedAt }) {
 							class="save-row-button"
 							aria-label="Save changes to row"
 						>
-							<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-check"/></svg>
+							<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-check"/></svg>
 						</button>
 					</span>
 				</td>
@@ -262,7 +262,7 @@ function addLinkToTable(id, { url, comment, updatedAt }) {
 							class="delete-row-button"
 							aria-label="Delete row"
 						>
-							<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-delete"/></svg>
+							<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-delete"/></svg>
 						</button>
 					</span>
 					<span class="cell-edit">
@@ -272,7 +272,7 @@ function addLinkToTable(id, { url, comment, updatedAt }) {
 							class="reset-row-button"
 							aria-label="Reset changes to row"
 						>
-							<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-x"/></svg>
+							<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-x"/></svg>
 						</button>
 					</span>
 				</td>

@@ -9,7 +9,7 @@
 		<title>Marco's URL Shortener</title>
 	</head>
 	<body>
-		<svg viewBox="0 0 24 24">
+		<svg viewBox="0 0 24 24" aria-hidden="true">
 			<defs>
 				<path
 					id="icon-sorting"
@@ -88,7 +88,7 @@
 						<span>
 							<input type="text" name="id" id="id-input" required />
 							<button type="button" id="generate-id-button" aria-label="Generate random id">
-								<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-shuffle" /></svg>
+								<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-shuffle" /></svg>
 							</button>
 						</span>
 					</div>
@@ -118,32 +118,32 @@
 						<th aria-sort="none">
 							<span>
 								<label for="id-sort-button">ID</label>
-								<button type="button" aria-pressed="false" id="id-sort-button">
-									<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-sorting" /></svg>
+								<button type="button" aria-pressed="false" id="id-sort-button" aria-sort="none" aria-label="Sort table by ID">
+									<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-sorting" /></svg>
 								</button>
 							</span>
 						</th>
 						<th aria-sort="none">
 							<span>
 								<label for="url-sort-button">URL</label>
-								<button type="button" aria-pressed="false" id="url-sort-button">
-									<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-sorting" /></svg>
+								<button type="button" aria-pressed="false" id="url-sort-button" aria-sort="none" aria-label="Sort table by URL">
+									<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-sorting" /></svg>
 								</button>
 							</span>
 						</th>
 						<th aria-sort="none">
 							<span>
 								<label for="updated-sort-button">Link Last Updated</label>
-								<button type="button" aria-pressed="false" id="updated-sort-button">
-									<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-sorting" /></svg>
+								<button type="button" aria-pressed="false" id="updated-sort-button" aria-sort="none" aria-label="Sort table by Link's Last Updated">
+									<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-sorting" /></svg>
 								</button>
 							</span>
 						</th>
 						<th aria-sort="none">
 							<span>
 								<label for="comment-sort-button">Comment</label>
-								<button type="button" aria-pressed="false" id="comment-sort-button">
-									<svg viewBox="0 0 24 24" width="24" height="24"><use href="#icon-sorting" /></svg>
+								<button type="button" aria-pressed="false" id="comment-sort-button" aria-sort="none" aria-label="Sort table by Comment">
+									<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-sorting" /></svg>
 								</button>
 							</span>
 						</th>
