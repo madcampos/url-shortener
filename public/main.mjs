@@ -149,6 +149,19 @@ function generateUrlCellContent(id, url) {
 }
 
 /**
+ * @param {Date} date
+ */
+function formatDateForInput(date) {
+	const year = date.getFullYear();
+	const month = (date.getMonth() + 1).toString().padStart(2, '0');
+	const day = date.getDate().toString().padStart(2, '0');
+	const hour = date.getHours().toString().padStart(2, '0');
+	const minutes = date.getMinutes().toString().padStart(2, '0');
+
+	return `${year}-${month}-${day}T${hour}:${minutes}`;
+}
+
+/**
  * @param {string} id
  * @param {Date} updatedAt
  */
@@ -157,19 +170,19 @@ function generateUpdatedAtCellContent(id, updatedAt) {
 
 	return raw`
 		<span class="cell-display">
-			<time datetime="${updatedAt.toISOString().replace('Z', '')}">${formatter.format(updatedAt)}</time>
+			<time datetime="${updatedAt.toISOString()}">${formatter.format(updatedAt)}</time>
 		</span>
 		<span class="cell-edit">
 			<label for="updated-at-input-${id}">Link Last Updated</label>
 			<input
 				type="datetime-local"
-				value="${updatedAt.toISOString().replace('Z', '')}"
+				value="${formatDateForInput(updatedAt)}"
 				id="updated-at-input-${id}"
 				name="updatedAt"
 				form="row-form-${id}"
 				required
 				autocomplete="off"
-				min="${updatedAt.toISOString().replace('Z', '')}"
+				min="${formatDateForInput(updatedAt)}"
 			/>
 		</span>
 	`;
@@ -205,7 +218,7 @@ function generateCommentCellContent(id, comment) {
 function addLinkToTable(id, { url, comment, updatedAt }) {
 	const NUM_COLORS = 18;
 
-	const existingTimeStamp = new Date(/** @type {HTMLTimeElement | null} */ (table.querySelector(`td[data-id="${id}"] time`))?.dateTime ?? '0000-00-00T00:00:00Z');
+	const existingTimeStamp = new Date(/** @type {HTMLTimeElement | null} */ (table.querySelector(`td[data-id="${id}"] time`))?.dateTime ?? '0000-01-01T00:00:00Z');
 
 	if (existingTimeStamp > updatedAt) {
 		return;
@@ -566,7 +579,15 @@ table.addEventListener('click', (evt) => {
 		return;
 	}
 
-	target.closest('tr')?.toggleAttribute('data-editing', true);
+	const tr = target.closest('tr');
+
+	if (!tr) {
+		return;
+	}
+
+	tr.toggleAttribute('data-editing', true);
+
+	(/** @type {HTMLInputElement} */ (tr.querySelector('input[type="datetime-local"]'))).value = formatDateForInput(new Date());
 });
 
 // Save table row
@@ -578,11 +599,12 @@ table.addEventListener('submit', async (evt) => {
 	const row = /** @type {HTMLTableRowElement} */ (target.closest('tr'));
 
 	const id = /** @type {string} */ (formData.get('id'));
+	const updatedAt = /** @type {string} */ (formData.get('updatedAt'));
 
 	/** @type {import('./helpers.mjs').Link} */
 	const data = {
 		url: /** @type {string} */ (formData.get('url')),
-		updatedAt: new Date(),
+		updatedAt: updatedAt ? new Date(updatedAt) : new Date(),
 		comment: /** @type {string} */ (formData.get('comment') ?? '')
 	};
 
@@ -603,7 +625,7 @@ table.addEventListener('reset', (evt) => {
 	const row = /** @type {HTMLTableRowElement} */ (target.closest('tr'));
 	const id = row.cells[0]?.querySelector('samp')?.textContent ?? '';
 	const url = row.cells[1]?.querySelector('a')?.href ?? '';
-	const updatedAt = new Date((row.cells[2]?.querySelector('time')?.dateTime ?? '0000-00-00') + 'Z');
+	const updatedAt = new Date(row.cells[2]?.querySelector('time')?.dateTime ?? '0000-01-01T00:00:00Z');
 	const comment = row.cells[3]?.querySelector('p')?.textContent ?? '';
 
 	(/** @type {HTMLTableCellElement} */ (row.cells[0])).innerHTML = generateIdCellContent(id);
@@ -618,7 +640,7 @@ document.querySelector('#download-links-button')?.addEventListener('click', () =
 	const text = [...table.rows].map((row) => {
 		const id = row.cells[0]?.querySelector('samp')?.textContent ?? '';
 		const url = row.cells[1]?.querySelector('a')?.href ?? '';
-		const updatedAt = (row.cells[2]?.querySelector('time')?.dateTime ?? '0000-00-00') + 'Z';
+		const updatedAt = row.cells[2]?.querySelector('time')?.dateTime ?? '0000-01-01T00:00:00Z';
 		const comment = row.cells[3]?.querySelector('p')?.textContent ?? '';
 
 		return `${id}\t${url}\t${updatedAt}\t${comment}`;
@@ -638,6 +660,10 @@ document.querySelector('#download-links-button')?.addEventListener('click', () =
 
 // Paste file
 document.addEventListener('paste', async (evt) => {
+	if (document.activeElement?.matches('input, textarea, select, [contenteditable]')) {
+		return;
+	}
+
 	const item = [...(evt.clipboardData?.items ?? [])].find((item) => item.kind === 'file' && item.type === 'text/plain');
 
 	if (item) {
@@ -674,6 +700,10 @@ document.addEventListener('paste', async (evt) => {
 
 // Paste text
 document.addEventListener('paste', async (evt) => {
+	if (document.activeElement?.matches('input, textarea, select, [contenteditable]')) {
+		return;
+	}
+
 	const item = [...(evt.clipboardData?.items ?? [])].find((item) => item.kind === 'string' && item.type === 'text/plain');
 
 	if (item) {

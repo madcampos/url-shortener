@@ -111,59 +111,61 @@
 		<div id="download-links-wrapper">
 			<button type="button" id="download-links-button">Download Links File</button>
 		</div>
-		<main role="region" tabindex="0" aria-labelledby="existing-links">
-			<table aria-labelledby="existing-links">
-				<thead>
-					<tr>
-						<th aria-sort="none">
-							<span>
-								<label for="id-sort-button">ID</label>
-								<button type="button" aria-pressed="false" id="id-sort-button" aria-sort="none" aria-label="Sort table by ID">
-									<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-sorting" /></svg>
-								</button>
-							</span>
-						</th>
-						<th aria-sort="none">
-							<span>
-								<label for="url-sort-button">URL</label>
-								<button type="button" aria-pressed="false" id="url-sort-button" aria-sort="none" aria-label="Sort table by URL">
-									<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-sorting" /></svg>
-								</button>
-							</span>
-						</th>
-						<th aria-sort="none">
-							<span>
-								<label for="updated-sort-button">Link Last Updated</label>
-								<button type="button" aria-pressed="false" id="updated-sort-button" aria-sort="none" aria-label="Sort table by Link's Last Updated">
-									<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-sorting" /></svg>
-								</button>
-							</span>
-						</th>
-						<th aria-sort="none">
-							<span>
-								<label for="comment-sort-button">Comment</label>
-								<button type="button" aria-pressed="false" id="comment-sort-button" aria-sort="none" aria-label="Sort table by Comment">
-									<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-sorting" /></svg>
-								</button>
-							</span>
-						</th>
-						<th>
-							<span>Edit</span>
-						</th>
-						<th>
-							<span>Delete</span>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td colspan="6">
-							<p>Loading links...</p>
-							<progress></progress>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+		<main>
+			<table-wrapper role="region" tabindex="0" aria-labelledby="existing-links">
+				<table aria-labelledby="existing-links">
+					<thead>
+						<tr>
+							<th aria-sort="none">
+								<span>
+									<label for="id-sort-button">ID</label>
+									<button type="button" aria-pressed="false" id="id-sort-button" aria-sort="none" aria-label="Sort table by ID">
+										<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-sorting" /></svg>
+									</button>
+								</span>
+							</th>
+							<th aria-sort="none">
+								<span>
+									<label for="url-sort-button">URL</label>
+									<button type="button" aria-pressed="false" id="url-sort-button" aria-sort="none" aria-label="Sort table by URL">
+										<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-sorting" /></svg>
+									</button>
+								</span>
+							</th>
+							<th aria-sort="none">
+								<span>
+									<label for="updated-sort-button">Link Last Updated</label>
+									<button type="button" aria-pressed="false" id="updated-sort-button" aria-sort="none" aria-label="Sort table by Link's Last Updated">
+										<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-sorting" /></svg>
+									</button>
+								</span>
+							</th>
+							<th aria-sort="none">
+								<span>
+									<label for="comment-sort-button">Comment</label>
+									<button type="button" aria-pressed="false" id="comment-sort-button" aria-sort="none" aria-label="Sort table by Comment">
+										<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><use href="#icon-sorting" /></svg>
+									</button>
+								</span>
+							</th>
+							<th>
+								<span>Edit</span>
+							</th>
+							<th>
+								<span>Delete</span>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="6">
+								<p>Loading links...</p>
+								<progress></progress>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</table-wrapper>
 		</main>
 
 		<script type="module" src="./main.mjs"></script>
