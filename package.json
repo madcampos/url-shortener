@@ -21,11 +21,11 @@
 	},
 	"devDependencies": {
 		"@types/wicg-file-system-access": "2023.10.6",
-		"@typescript-eslint/eslint-plugin": "8.49.0",
-		"@typescript-eslint/parser": "8.49.0",
-		"dprint": "0.50.2",
+		"@typescript-eslint/eslint-plugin": "8.52.0",
+		"@typescript-eslint/parser": "8.52.0",
+		"dprint": "0.51.1",
 		"eslint": "9.39.1",
-		"globals": "16.5.0",
+		"globals": "17.0.0",
 		"typescript": "5.9.3",
 		"wrangler": "4.59.1"
 	}
