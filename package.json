@@ -9,24 +9,15 @@
 		"generate:types": "wrangler types src/env.d.ts",
 		"deploy:prod": "wrangler deploy --minify --env production",
 		"format": "dprint fmt --staged",
-		"typecheck": "tsc --noEmit",
-		"lint:js": "eslint",
-		"lint": "npm run typecheck && npm run lint:js"
+		"typecheck": "tsc --noEmit"
 	},
 	"author": "madcampos",
 	"license": "MIT",
 	"description": "A URL shortener",
-	"volta": {
-		"node": "22.15.0"
-	},
 	"devDependencies": {
-		"@types/wicg-file-system-access": "2023.10.6",
-		"@typescript-eslint/eslint-plugin": "8.54.0",
-		"@typescript-eslint/parser": "8.54.0",
-		"dprint": "0.51.1",
-		"eslint": "10.0.0",
-		"globals": "17.3.0",
-		"typescript": "5.9.3",
-		"wrangler": "4.63.0"
+		"@types/wicg-file-system-access": "2023.10.7",
+		"dprint": "0.53.1",
+		"typescript": "6.0.2",
+		"wrangler": "4.79.0"
 	}
 }

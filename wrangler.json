@@ -1,0 +1,38 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "url-shortener",
+	"main": "src/index.mjs",
+	"compatibility_date": "2025-05-05",
+	"keep_vars": false,
+	"send_metrics": false,
+	"preserve_file_names": true,
+	"minify": true,
+	"workers_dev": false,
+	"preview_urls": false,
+	"routes": [{ "pattern": "madc.ca", "custom_domain": true }],
+	"dev": {
+		"ip": "localhost",
+		"port": 4242,
+		"local_protocol": "https",
+		"upstream_protocol": "https"
+	},
+	"assets": {
+		"directory": "./public/",
+		"binding": "Assets",
+		"run_worker_first": true,
+		"html_handling": "none",
+		"not_found_handling": "none"
+	},
+	"vars": {
+		"NODE_ENV": "local",
+		"NODE_VERSION": "24.13.0",
+		"PNPM_VERSION": "10.26.2"
+	},
+	"env": {
+		"production": {
+			"vars": {
+				"NODE_ENV": "production"
+			}
+		}
+	}
+}
