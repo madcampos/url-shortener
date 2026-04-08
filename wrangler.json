@@ -24,14 +24,14 @@
 		"not_found_handling": "none"
 	},
 	"vars": {
-		"NODE_ENV": "local",
+		"NODE_ENV": "production",
 		"NODE_VERSION": "24.13.0",
 		"PNPM_VERSION": "10.26.2"
 	},
 	"env": {
-		"production": {
+		"local": {
 			"vars": {
-				"NODE_ENV": "production",
+				"NODE_ENV": "local",
 				"NODE_VERSION": "24.13.0",
 				"PNPM_VERSION": "10.26.2"
 			}
