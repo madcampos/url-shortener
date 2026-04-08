@@ -3,6 +3,7 @@
 	"name": "url-shortener",
 	"main": "src/index.mjs",
 	"compatibility_date": "2026-04-07",
+	"compatibility_flags": ["nodejs_compat"],
 	"keep_vars": false,
 	"send_metrics": false,
 	"preserve_file_names": true,
@@ -30,9 +31,7 @@
 	},
 	"env": {
 		"local": {
-			"vars": {
-				"NODE_ENV": "local"
-			}
+			"vars": { "NODE_ENV": "local" }
 		}
 	}
 }
