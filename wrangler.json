@@ -31,7 +31,9 @@
 	"env": {
 		"production": {
 			"vars": {
-				"NODE_ENV": "production"
+				"NODE_ENV": "production",
+				"NODE_VERSION": "24.13.0",
+				"PNPM_VERSION": "10.26.2"
 			}
 		}
 	}
