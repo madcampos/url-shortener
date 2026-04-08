@@ -25,15 +25,13 @@
 	},
 	"vars": {
 		"NODE_ENV": "production",
-		"NODE_VERSION": "24.13.0",
-		"PNPM_VERSION": "10.26.2"
+		"NODE_VERSION": "24.14.1",
+		"PNPM_VERSION": "10.33.0"
 	},
 	"env": {
 		"local": {
 			"vars": {
-				"NODE_ENV": "local",
-				"NODE_VERSION": "24.13.0",
-				"PNPM_VERSION": "10.26.2"
+				"NODE_ENV": "local"
 			}
 		}
 	}
