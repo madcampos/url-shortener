@@ -7,7 +7,7 @@
 	"scripts": {
 		"start": "wrangler dev --https-cert-path certs/server.crt --https-key-path certs/server.key",
 		"generate:types": "wrangler types src/env.d.ts",
-		"deploy:prod": "wrangler deploy --minify --env production",
+		"deploy": "wrangler deploy --minify --env production",
 		"format": "dprint fmt --staged",
 		"typecheck": "tsc --noEmit"
 	},
