@@ -5,9 +5,10 @@
 	"main": "src/index.mjs",
 	"type": "module",
 	"scripts": {
-		"start": "wrangler dev --env=local --https-cert-path certs/server.crt --https-key-path certs/server.key",
+		"bootstrap": "pnpm install && pnpm run generate:certs && pnpm run generate:types",
+		"generate:certs": "mkdir certs && mkcert -key-file=certs/server.key -cert-file=certs/server.crt localhost",
 		"generate:types": "wrangler types src/env.d.ts",
-		"deploy": "wrangler deploy --minify --env=\"\"",
+		"deploy": "wrangler deploy --minify",
 		"format": "dprint fmt --staged",
 		"typecheck": "tsc --noEmit"
 	},
