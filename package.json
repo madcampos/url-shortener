@@ -17,8 +17,8 @@
 	"description": "A URL shortener",
 	"devDependencies": {
 		"@types/wicg-file-system-access": "2023.10.7",
-		"dprint": "0.53.1",
+		"dprint": "0.54.0",
 		"typescript": "6.0.2",
-		"wrangler": "4.79.0"
+		"wrangler": "4.81.1"
 	}
 }
