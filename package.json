@@ -19,6 +19,6 @@
 		"@types/wicg-file-system-access": "2023.10.7",
 		"dprint": "0.54.0",
 		"typescript": "6.0.2",
-		"wrangler": "4.81.1"
+		"wrangler": "4.90.1"
 	}
 }
